@@ -1,0 +1,4 @@
+interface:
+  display_name: "Main feature orchestrator"
+  short_description: "Delegate planned work with a small main context"
+  default_prompt: "Use $feature-orchestrate to deliver this selected work using its existing specification and implementation plan."

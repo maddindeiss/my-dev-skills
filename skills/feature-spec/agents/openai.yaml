@@ -1,0 +1,4 @@
+interface:
+  display_name: "Feature specification"
+  short_description: "Define feature behavior and acceptance criteria"
+  default_prompt: "Use $feature-spec to define this feature and its acceptance criteria."

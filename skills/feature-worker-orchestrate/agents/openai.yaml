@@ -1,0 +1,4 @@
+interface:
+  display_name: "Worker orchestrator"
+  short_description: "Assign planned work, run reviews, and merge once"
+  default_prompt: "Use $feature-worker-orchestrate to execute the supplied spec and plan through workers, review rounds, and one aggregate delivery."

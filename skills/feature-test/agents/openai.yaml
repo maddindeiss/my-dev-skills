@@ -1,0 +1,4 @@
+interface:
+  display_name: "Feature verification"
+  short_description: "Check acceptance criteria and regression proof"
+  default_prompt: "Use $feature-test to verify this ticket or integrated feature against its acceptance criteria."

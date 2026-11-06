@@ -1,0 +1,4 @@
+interface:
+  display_name: "Independent feature review"
+  short_description: "Review code and return actionable findings"
+  default_prompt: "Use $feature-review to independently review this committed change against its specification."

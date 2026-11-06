@@ -1,0 +1,4 @@
+interface:
+  display_name: "Feature implementation worker"
+  short_description: "Implement a child task with tests and evidence"
+  default_prompt: "Use $feature-implement to complete the assigned child task in its isolated worktree."

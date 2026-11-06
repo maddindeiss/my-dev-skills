@@ -1,0 +1,4 @@
+interface:
+  display_name: "Feature implementation planning"
+  short_description: "Prepare the plan and tickets before orchestration"
+  default_prompt: "Use $feature-plan to create the implementation plan and Markdown tickets from this specification; stop before orchestration."

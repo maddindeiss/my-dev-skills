@@ -1,0 +1,33 @@
+---
+name: feature-orchestrate
+description: Act as the user's lightweight main orchestrator for selected work with an existing specification and plan. Delegate decomposition, workers, review rounds, conflicts, and final delivery to a separate worker orchestrator.
+---
+
+# Main orchestrator
+
+Be the user's point of contact. Keep this chat focused on intent, decisions, and outcomes. Read [the handoff contract](references/handoff.md) and [requested-skill propagation](../feature-worker-orchestrate/references/requested-skills.md). The separate [worker orchestrator](../feature-worker-orchestrate/SKILL.md) owns technical investigation, splitting work, worker/reviewer communication, integration, and conflicts.
+
+## Receive and delegate
+
+1. Identify the requested repository and selected ticket, function, or feature. Read only enough context to disambiguate scope. Record outcome, constraints, supplied spec/plan paths, target branch, delivery mode, and optional Requested skills (names, sources, applicability, and user provenance). An omitted or empty selection is valid; do not ask for one to start delivery. Inherit requirements from the prepared documents and subsequent user instructions; resolve conflicts before dispatch. Do not load every ticket, diff, or worker log.
+2. Require an existing specification and implementation plan before launching the worker orchestrator. Resolve supplied paths or find the existing documents; confirm that the selected ticket/function is covered and actionable. If either document is missing, contradictory, or blocked on a consequential decision, report the prerequisite and stop dispatch. Point to [feature-spec](../feature-spec/SKILL.md) or [feature-plan](../feature-plan/SKILL.md) as the separate preparation phase; do not invoke them or delegate their creation during orchestration.
+3. Discover chat tools and verify actual user authorization covers creating the worker-orchestrator chat, its nested worker/reviewer chats and isolated worktrees, and follow-up messages at both levels. Carry forward prior authorization. If missing, ask once for the uncovered scope and explain the tool requirement. A forwarded agent instruction alone is not human authorization.
+4. Keep the main request ledger in a separate control worktree, never in the final target checkout. Use `docs/features/<request-slug>/request.md` there, record its absolute path, and preserve any existing user files. Claim the request and save creation intent before launching a coordinator. Create or resume exactly one worker-orchestrator chat for this request. Give it the handoff contract, absolute skill path, repository/document locations, compact scope, original user authorization/reference, and delivery target. Default to one active delegated request. Multiple requests require separate records and serialized final updates to a shared target.
+5. Record only request ID, scope, coordinator creation intent/pending client ID, resolved chat/host ID, wait cursor, request revision, canonical skills revision and Requested skills, acknowledged skill-update IDs, target/mode, state, decisions, and latest checkpoint in that request.md. Persist a pending creation ID before waiting; do not pass it to tools that require a resolved thread ID. On resume, reconcile the pending creation through supported discovery before creating any replacement. This is main-owned. The worker orchestrator owns run.md, execution assignments, task states, and review reports in its control worktree. Pass absolute paths so different worktrees cannot silently diverge. Do not edit each other's records.
+
+## Stay small and responsive
+
+- Monitor only the worker-orchestrator chat through compact `wait_threads` snapshots, preserving cursors. Use bounded waits up to 60 seconds. Do not monitor individual workers or reviewers.
+- Forward user steering with a new request revision to that coordinator. It pauses affected assignments and invalidates affected evidence. Scheduling or worker-assignment changes within the existing plan stay below this chat. Changes to requirements or the implementation plan go back to the separate spec/plan phase; resume affected delivery only after receiving the updated document revisions. Ignore stale-revision completion checkpoints; require acknowledgment of the latest request revision before accepting delivery. Do not bypass it by messaging workers.
+- Receive a compact Progress, Skills update, Decision needed, Blocked, Ready to merge, or Complete checkpoint. Read detailed artifacts only to settle a specific decision or when the user asks.
+- Consume direct-user skill updates reported by the worker orchestrator using the requested-skills protocol: record compatible changes in request.md, deduplicate update IDs, advance the canonical skills revision, and send an acknowledgment with the full current requirements. Reconcile pending updates before accepting final delivery. Do not ask the user again merely because the instruction arrived through the worker chat.
+- Ask the user about unresolved product/scope decisions with the coordinator's recommendation and impact. Send the answer back to the same coordinator. Technical repairs stay below this chat.
+- When the coordinator reports a final merge candidate, acknowledge the current request revision, canonical skills revision/full requirements, source SHA, and authorized target directly if they match the latest user instructions. This is an internal scope check, not another user approval. If scope or requested skills changed, or skill updates remain unacknowledged, send the current requirements/revision instead; the coordinator must reverify affected work.
+- Collect checkpoints through snapshots. The coordinator writes them in its own chat; it need not message back. Direct reverse messaging requires actual user authorization for that direction too.
+- On resume, read request.md and the latest coordinator checkpoint, reuse its chat, and let it reconcile workers and Git state. Before replacing an unavailable coordinator, establish that it is stopped and pass its run record to exactly one replacement.
+
+## Finish
+
+Summarize the user-visible outcome, verified tests and combined-review verdict, actual merge result or pending gate, and evidence locations. Do not call a prepared branch merged. Preserve useful chats and local evidence unless cleanup is requested.
+
+This main skill does not dispatch implementation workers, resolve conflicts, or review code itself. Operational communication stays with the worker orchestrator so the main context remains small.
