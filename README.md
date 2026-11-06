@@ -43,23 +43,23 @@ Two implementation workers run by default, within the host's capacity including 
 
 ## Install in Codex
 
-Install all seven sibling folders together because they reference each other. For Linux/WSL, run this from the repository for a new user installation:
+Install all seven skills together from this public repository because they reference each other. With Node.js and npm available, run:
 
 ```bash
-mkdir -p "$HOME/.agents/skills"
-for skill in skills/feature-*; do
-  target="$HOME/.agents/skills/$(basename "$skill")"
-  if [ -e "$target" ] || [ -L "$target" ]; then
-    printf 'Already exists; inspect before updating: %s\n' "$target"
-  else
-    cp -R "$skill" "$target"
-  fi
-done
+npx skills@latest add maddindeiss/my-dev-skills --agent codex --skill '*' --global --yes
 ```
 
-For project-only use, copy all seven directories into that project's `.agents/skills/`. Use the filesystem of the host running the agents. Codex discovers them automatically; restart if they do not appear. See [official skill documentation](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills).
+This installs the complete set for Codex across your projects. Omit `--global` and run the command from a target project to install only there. Keep the quotes around `'*'` so your shell does not expand it. `--yes` skips the skills CLI's confirmation prompts.
 
-If you installed the earlier six-skill version, back up those installed directories and replace them with this complete seven-skill set. The old feature-orchestrate now serves as the main chat; its former operational references have moved into feature-worker-orchestrate. Avoid retaining the old operational instructions alongside the new ones. The command above deliberately skips existing directories, so it does not perform an upgrade.
+You can preview the available skills without installing them:
+
+```bash
+npx skills@latest add maddindeiss/my-dev-skills --list
+```
+
+See the [skills CLI documentation](https://github.com/vercel-labs/skills/blob/main/docs/commands.md) for available options.
+
+Codex discovers installed skills automatically; restart if they do not appear. See [official skill documentation](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills).
 
 Files under this repository's `skills/` are source files, not a global installation. Normal skill discovery remains enabled; discovery itself does not grant tool permissions.
 
@@ -136,9 +136,3 @@ Approvals name exact commits. New code, conflict resolution, or target changes r
 Final verdict and completion records remain explicitly listed local evidence after approval, preserving the reviewed commit. Earlier documents and coordination updates are committed before final review. A prepared branch, an open PR, and a completed merge are reported as different outcomes. Merging does not include deployment.
 
 These skills are agent instructions, not a background scheduler. Live delivery requires Git with an initial commit, usable check commands, and the appropriate Codex chat/worktree tools. Internal subagents may be used only if that mode is explicitly acceptable; shared host limits count the whole hierarchy.
-
-## Sources and validation
-
-Adapted from [Blueprint](https://github.com/owainlewis/blueprint) and informed by [software-factory](https://github.com/mattpocock/skills/tree/main/skills/in-progress/software-factory). See [third-party notices](THIRD_PARTY_NOTICES.md). MIT notices are included in every skill.
-
-Validation covers skill frontmatter, UI metadata, licenses, sibling links, isolated installation, and independent scenario walkthroughs. Live multi-chat execution and actual target merges remain separate integration tests.
