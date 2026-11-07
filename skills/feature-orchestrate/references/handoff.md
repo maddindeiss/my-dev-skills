@@ -12,6 +12,7 @@ Fill this with concrete values; do not forward the entire main conversation:
 Use $feature-worker-orchestrate at [absolute SKILL.md path].
 Request: [stable ID and revision]. Repository: [absolute path/project ID].
 Selected scope: [ticket ID/path, function location, or feature outcome].
+Chat scope label: [short plain-language description of the selected work, shared across chat titles].
 Existing spec: [required path and revision].
 Existing plan: [required path and revision; selected ticket/section].
 Constraints and acceptance: [summary and canonical source locations].

@@ -13,10 +13,10 @@ Read [requested-skill propagation](../feature-worker-orchestrate/references/requ
 
 1. Verify the assigned worktree, branch, and base SHA before edits. Never work in the worker orchestrator's integration worktree. If the requested base is unavailable or the checkout contains unexplained changes, report the blocker instead of resetting it.
 2. Implement only the ticket's outcome. Follow existing contracts and update affected documentation. Ask the worker orchestrator about product decisions or scope conflicts; routine implementation choices are yours.
-3. Add focused tests for changed behavior, regressions, and relevant failure paths. Use [feature-test](../feature-test/SKILL.md) until the required evidence is available. Preserve existing unrelated failures in the report.
-4. Inspect the diff and commit the ticket's changes. Report the exact base, commit range, and head SHA. Do not include unrelated working-tree changes or shared coordination records.
+3. Use the check scopes in [feature-test](../feature-test/SKILL.md). Add missing focused regression coverage and run focused checks as needed while editing.
+4. Inspect the diff and commit only the ticket's changes. Collect handoff evidence on the clean committed head. Use the child-task check scope for delegated work and all applicable required checks for standalone work. Preserve existing unrelated failures in the report. Report the exact base, commit range, and tested head SHA.
 5. Return the handoff below. Do not open per-child PRs or deliver directly to the target. Push a worker branch only if the worker orchestrator explicitly assigns an authorized branch transfer. The worker orchestrator owns integration and reviewer dispatch; do not merge into the default branch or approve your own code.
-6. For a repair, read every finding, reproduce relevant failures, and fix their cause. Preserve finding IDs in the response. If integration has advanced, use the assigned updated base and explain any conflict resolution; all changed code needs fresh review. Return to testing before handing back.
+6. For a repair, read every finding, reproduce relevant failures, and fix their cause. Preserve finding IDs in the response. If integration has advanced, use the assigned updated base and explain any conflict resolution. On the new committed head, rerun checks affected by the fix or base change and any checks required at handoff. Submit that head for fresh review.
 
 ```text
 TICKET: T-001

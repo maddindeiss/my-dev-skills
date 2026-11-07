@@ -2,9 +2,21 @@
 
 Discover available tools by capability; names and schemas may change. Do not invent tools or assume a command in a source repository exists here.
 
+## Chat titles
+
+Start every visible delivery chat title with its role. Use a short, plain-language scope label across the request, such as `Saved searches`. When the request covers part of a feature, describe the selected outcome. Label each child task by what it changes, such as `Add save button`, and use distinct descriptions for different tasks. Keep ticket and assignment IDs in the coordination records and handoffs.
+
+- `Main Orchestrator — <scope>`
+- `Worker Orchestrator — <scope>`
+- `Implementation Worker — <scope> / <task description>`
+- `Ticket Reviewer — <scope> / <task description> / Round <n>`
+- `Final Reviewer — <scope> / Round <n>`
+
+Pass the title in `create_thread.title` so it appears from creation, including while a worktree is pending. If creation has no title field, use `set_thread_title` once the real thread ID resolves. On resume, reuse the recorded descriptive scope label. If the label is missing or uses ticket IDs, derive and record a descriptive label from the existing scope. Apply the convention to reused chats with default titles or earlier skill-generated titles that use IDs. Preserve titles explicitly chosen by the user. For a replacement with the same base title, append ` / Attempt 2` or the next attempt number.
+
 ## Visible Codex chats
 
-- Read current `create_thread`, `list_projects`, `list_threads`, `read_thread`, `wait_threads`, and `send_message_to_thread` schemas. Use the project ID returned by discovery. Follow tool-specific requirements for human authorization, worktree creation, starting refs, and messaging.
+- Read current `create_thread`, `set_thread_title`, `list_projects`, `list_threads`, `read_thread`, `wait_threads`, and `send_message_to_thread` schemas. Use the project ID returned by discovery. Follow tool-specific requirements for human authorization, worktree creation, starting refs, and messaging.
 - Prefer project worktree chats when the user explicitly requested separate worktrees and the project is a Git repository. Do not pass an invented branch through a field that requires a user-specified branch. If the tool creates from the default branch, tell the worker to inspect the clean managed worktree and create its ticket branch at the supplied, verified integration SHA before implementation. Do not reset unrelated work to make it fit.
 - For a pending creation, record the client ID, then use supported discovery/wait mechanisms to obtain the real thread ID. Do not dispatch a duplicate while setup is pending.
 - Use `wait_threads` with thread ID, host ID, and latest cursor; use bounded waits up to 60 seconds. Use `read_thread` for missing details or intervention. A timeout is not a failure or a completed result.
@@ -28,7 +40,7 @@ Implement ticket [ID] for feature [name] in [exclusive worktree].
 Start from integration commit [full SHA]; use ticket branch [branch].
 Spec: [path and current content or immutable revision].
 Ticket: [path and full current content].
-Repository instructions: [locations]. Checks: [known commands].
+Repository instructions: [locations]. Ticket checks: [focused commands and checks required before handoff].
 Dependencies already integrated: [IDs and SHAs].
 Scope and ownership: [outcome, permitted changes, shared contracts].
 Requested skills (optional): [applicable IDs, names, resolved sources, roles, scopes; or None].
@@ -47,7 +59,8 @@ Use $feature-review at [absolute SKILL.md path].
 Independently review [ticket ID or entire feature] in [review worktree].
 Base: [full SHA]. Head: [full SHA].
 Spec and ticket: [current content and revision].
-Check commands: [commands]. Repository instructions: [locations].
+Verification evidence: [commands, results, tested SHA, and artifact locations].
+Checks required independently: [commands, if any]. Repository instructions: [locations].
 Scope: [ticket acceptance or entire feature acceptance matrix].
 Requested skills (optional): [applicable entries/sources/scopes and implementation evidence].
 Skills revision: [effective revision being reviewed].

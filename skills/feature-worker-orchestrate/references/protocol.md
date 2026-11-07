@@ -24,7 +24,7 @@ Read [requested skills](requested-skills.md) for propagation, direct-user update
 
 Record in `run.md`:
 
-- Main chat ID/host, main request.md path, request ID/revision, selected parent ticket/function, and verified human authorization reference.
+- Main chat ID/host, main request.md path, request ID/revision, selected parent ticket/function, shared chat scope label, and verified human authorization reference.
 - Requested skills with stable IDs, sources, applicability and human provenance; canonical and effective skills revisions; persisted pending events, sequence counter, and main acknowledgment mappings.
 - Spec/plan locations, child task IDs, repository root, agreed base ref and original base SHA.
 - Final target ref, expected target SHA, merge method, merge intent, actual merge SHA/PR state, and requested delivery mode.

@@ -17,7 +17,7 @@ Read [requested-skill propagation](../feature-worker-orchestrate/references/requ
 
 1. Read the spec, ticket, relevant repository instructions, complete base-to-head diff, and affected callers. Include supplied uncommitted changes only for preliminary review; final approval requires a reproducible committed head.
 2. Map every in-scope acceptance criterion to the implementation and evidence. Flag missing behavior, unrequested scope, and important behavior without adequate tests.
-3. Run relevant checks independently using [feature-test](../feature-test/SKILL.md) in review mode. Probe meaningful boundary and failure cases through the real entry point. Choose cases from the contract rather than a fixed arbitrary count.
+3. Evaluate the supplied commands, results, and artifacts for the exact reviewed head and current requirements. Reuse adequate evidence for the assigned review scope. Run targeted independent checks to close material gaps or probe specific risks, plus any checks the repository, user, or requested skills require the reviewer to perform. When probing behavior, choose cases from the contract and exercise them through the real entry point.
 4. Check authorization, input handling, data integrity, migration/rollback, concurrency, and compatibility where touched. Distinguish observed defects from speculation and preferences.
 5. If a test's regression value is in doubt, use a disposable scratch copy to disable the changed behavior and verify failure. Leave the reviewed checkout and worker worktree intact. If execution is unavailable, state what is unverified and whether it could hide a blocking defect.
 6. For whole-feature review, examine the entire original-base-to-integration-head diff and interactions across tickets. Check the selected parent's complete flow, scoped acceptance matrix, and relevant interactions, even when individual child tasks already passed. A selected-ticket request does not require implementing unrelated criteria from a broader parent spec.
@@ -39,6 +39,7 @@ ACCEPTANCE: ID → Met / Partial / Missing / Unverified, with evidence
 FINDINGS: stable ID, severity, location, trigger, consequence, evidence, correction
 PREVIOUS_FINDINGS: ID → resolved / unresolved / counter-evidence
 CHECKS_RUN: command → result
+EVIDENCE_USED: check → source and tested SHA
 UNVERIFIED:
 ```
 
