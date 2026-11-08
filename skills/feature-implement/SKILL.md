@@ -16,11 +16,11 @@ Read [requested-skill propagation](../feature-worker-orchestrate/references/requ
 3. Use the check scopes in [feature-test](../feature-test/SKILL.md). Add missing focused regression coverage and run focused checks as needed while editing.
 4. Inspect the diff and commit only the ticket's changes. Collect handoff evidence on the clean committed head. Use the child-task check scope for delegated work and all applicable required checks for standalone work. Preserve existing unrelated failures in the report. Report the exact base, commit range, and tested head SHA.
 5. Return the handoff below. Do not open per-child PRs or deliver directly to the target. Push a worker branch only if the worker orchestrator explicitly assigns an authorized branch transfer. The worker orchestrator owns integration and reviewer dispatch; do not merge into the default branch or approve your own code.
-6. For a repair, read every finding, reproduce relevant failures, and fix their cause. Preserve finding IDs in the response. If integration has advanced, use the assigned updated base and explain any conflict resolution. On the new committed head, rerun checks affected by the fix or base change and any checks required at handoff. Submit that head for fresh review.
+6. For a repair, read the findings batch, reproduce relevant failures, and fix their shared causes across affected uses within scope. Preserve finding IDs in the response. If integration has advanced, use the assigned updated base and explain any conflict resolution. On the new committed head, rerun affected checks and required handoff checks. Return the head and evidence to the coordinator for integration and any required review follow-up.
 
 ```text
 TICKET: T-001
-RESULT: Ready for review | Blocked
+RESULT: Ready for integration | Blocked
 WORKTREE / BRANCH:
 BASE_SHA / HEAD_SHA:
 COMMITS:

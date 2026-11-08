@@ -35,8 +35,8 @@ flowchart TD
 2. It verifies the prerequisites, then creates or resumes one worker-orchestrator chat with the existing spec/plan references and a compact assignment. Missing or blocked documents stop dispatch.
 3. The worker orchestrator reads the code and existing documents, then divides the selected planned scope into worker assignments. It does not create or rewrite the spec or implementation plan. A small function may need only one worker. Independent tasks run concurrently; shared contracts and overlapping edits are ordered.
 4. Workers implement in isolated worktrees and return committed changes and test evidence to the worker orchestrator.
-5. A fresh reviewer checks the changes. Findings go to the worker orchestrator, which assigns repairs and starts another review round. The main chat does not receive routine findings or worker logs.
-6. The worker orchestrator assembles approved work on a temporary candidate, handles conflicts, and tests the combined result. Final review covers the entire selected scope.
+5. Tickets with passing checks proceed to integration. An earlier independent review is required only by repository or user rules, or for a specific dependency risk recorded by the coordinator.
+6. The worker orchestrator tests the combined result and assigns one independent review of the full selected scope. Reviewers return a consolidated findings batch. Workers repair the affected code, and the same reviewer checks the combined repair diff and issues a verdict for the new head.
 7. When authorized and all gates pass, the worker orchestrator performs one aggregate merge into the named target and returns a compact result to main. Child branches never merge into that target independently.
 
 Two implementation workers run by default, within the host's capacity including both orchestrators and reviewers. Repair loops allow three rounds per child task and three for the combined request. Exhausted budgets become recorded blockers; independent work may continue.

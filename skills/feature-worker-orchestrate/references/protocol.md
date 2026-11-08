@@ -43,7 +43,7 @@ Record in `run.md`:
 - Integration branch, worktree, last verified integration SHA, and final approved SHA.
 - Pending integration: candidate branch/worktree, recorded integration base, ticket source head/range, resulting candidate SHA, and combined-check status. A candidate with committed changes and failing tests is still unverified and never becomes the dispatch base.
 - User-authorized dispatch mode for workers and reviewers, including any role-specific subagent opt-ins. Record concurrency, delivery mode, exact messaging scope, and references to the original user instructions.
-- For each ticket: state, worker ID and host, worktree, branch, assigned base SHA, current head SHA, reviewer ID, reviewed SHA, report path, repair rounds used, integration SHA, blocker.
+- For each ticket: state, worker ID and host, worktree, branch, assigned base SHA, current head SHA, any early review gate and its reason/scope, reviewer ID, reviewed SHA, report path, repair rounds used, integration SHA, blocker. Record the combined reviewer ID for reuse across follow-ups.
 - Pending chat creation IDs, resolved thread IDs, and wait cursors. A pending client ID is not a usable thread ID.
 - Whole-feature repair rounds, check commands/results, current scoped acceptance matrix with parent-criterion mapping, and unresolved findings.
 
@@ -51,11 +51,13 @@ Write at each transition so a resumed orchestrator can reconstruct the next acti
 
 ## States
 
-`Ready → Implementing → Review → Approved → Integrated`
+Default ticket path is `Ready → Implementing → Verified → Integrated`.
 
-`Review → Changes requested → Implementing` is the repair loop.
+An explicitly required early gate adds `Verified → Review → Approved` before integration. `Integrated` means the candidate checks passed and dependent work can proceed. Final delivery requires combined independent review and approval.
 
-`Approved → Review` applies when the worker's head changes. Reopening an integrated ticket for a final finding creates a new repair head from the current verified integration base; retain the old integrated head as history, and require the repair to pass the same loop before the ticket becomes `Integrated` again. Reopen affected dependents only when the correction invalidates their contracts or evidence.
+`Review → Changes requested → Implementing` is the repair loop. Reopening an integrated ticket for a final finding creates a repair head from the current integration base. Retain the old integrated head as history and rerun affected checks and any applicable early gate before reintegration. Reopen dependents when the correction invalidates their contracts or evidence.
+
+On resume, preserve existing `Review`, `Approved`, and finding records. Reconcile them with the current review policy and user instructions. A policy change leaves known blocking findings to resolve and preserves the repair budget already used.
 
 `Blocked` records a concrete missing decision, unavailable capability, exhausted repair budget, or failing required check. It preserves the prior state and evidence so resumption can continue from that point. Blocked work never satisfies a dependency. A worker's completion message moves work to review, not directly to Integrated.
 

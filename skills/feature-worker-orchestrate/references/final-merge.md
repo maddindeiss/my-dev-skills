@@ -6,8 +6,8 @@ Assemble child-task work on one request integration branch. Internal merges/cher
 
 1. Require tests and independent combined review for the entire selected scope. Record reviewed source SHA, target ref and observed SHA, intended method, and authorization in run.md. Use the repository's permitted method: one squash commit when requested or conventional, otherwise one aggregate merge/fast-forward operation.
 2. Refresh the target. If it advanced, build a candidate including the updated target in a disposable worktree. Reconcile the spec and plan's [implementation status](protocol.md#implementation-status) with the resulting scope. Leave the target untouched. Assign conflicts to one designated worker, or resolve purely mechanical conflicts yourself in the candidate. Record resolutions; do not discard either side without understanding the contract.
-3. A changed base or conflict resolution requires tests of the resulting combined tree and fresh independent review against the current target. Give the reviewer the candidate's check evidence. Route findings to workers and repeat within the final repair budget. Earlier approval cannot approve new resolutions.
-4. If commits are rewritten for squash/rebase, verify the resulting tree matches the tested candidate and record the new source SHA. Obtain fresh review if content changes. Preserve previous branches as evidence.
+3. A changed base or conflict resolution requires affected tests of the resulting combined tree and renewed independent approval against the current target. Send the delta, new head, and evidence to the existing reviewer. Route findings to workers and repeat within the final repair budget.
+4. If commits are rewritten for squash/rebase, verify the resulting tree matches the tested candidate and record the new source SHA. Obtain renewed approval from the reviewer if content changes. Preserve previous branches as evidence.
 
 ## Update the target once
 
