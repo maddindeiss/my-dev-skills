@@ -17,7 +17,8 @@ Write `docs/features/<feature-slug>/spec.md`, or update the user's existing spec
 
 ```markdown
 # Feature name
-Status: Draft | Ready | Delivered
+Status: Draft | Ready
+Implementation status: Pending
 
 ## Problem and users
 Who needs this, what happens today, and the intended outcome.
@@ -47,4 +48,4 @@ Explicit boundaries for implementation and review.
 Unanswered choice, recommendation, and what it blocks; or None.
 ```
 
-Return the path, key decisions, and any blocking question. `Ready` means the definition is actionable, not that a human approved it. `Delivered` requires the final feature review and tests to pass; record whether delivery is local, in an open PR, or merged.
+Return the path, key decisions, and any blocking question. `Ready` means the definition is actionable. Preserve verified implementation coverage that still applies when revising an existing spec. The worker orchestrator maintains the [implementation status](../feature-worker-orchestrate/references/protocol.md#implementation-status) during delivery.

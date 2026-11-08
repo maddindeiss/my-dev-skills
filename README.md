@@ -134,6 +134,8 @@ The main owns a small request.md in a separate control worktree so its updates d
 
 Approvals name exact commits. New code, conflict resolution, or target changes require renewed relevant checks and review. Integration candidates are tested before advancing the verified request branch. A changed target is reconciled before the single final target update. Merge intent and outcome are recorded so interrupted runs do not merge twice.
 
-Final verdict and completion records remain explicitly listed local evidence after approval, preserving the reviewed commit. Earlier documents and coordination updates are committed before final review. A prepared branch, an open PR, and a completed merge are reported as different outcomes. Merging does not include deployment.
+The spec and plan both show implementation status. A fully verified feature is marked `Implemented`. Delivery of a subset is marked `Partially implemented`, with the covered scope listed. These status edits are included in the reviewed delivery candidate when the documents are in the repository.
+
+Final verdict and completion records remain explicitly listed local evidence after approval, preserving the reviewed commit. A prepared branch, an open PR, and a completed merge are reported as different outcomes. Merging does not include deployment.
 
 Live delivery requires Git with an initial commit, usable check commands, and the appropriate Codex chat and worktree tools. Internal subagents are an explicit opt-in for implementation and review roles. Shared host limits count the whole hierarchy.

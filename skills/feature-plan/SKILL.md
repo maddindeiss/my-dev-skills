@@ -28,7 +28,7 @@ Preserve optional skill selections from the spec or user request in the plan and
 
 ## Plan format
 
-Record the spec path, intended base branch, proposed feature integration branch, check commands discovered in the repository, and this table:
+Set `Implementation status: Pending` near the top of a new plan. When revising an existing plan, preserve verified coverage that still applies. The worker orchestrator maintains the [implementation status](../feature-worker-orchestrate/references/protocol.md#implementation-status) during delivery. Record the spec path, intended base branch, proposed feature integration branch, check commands discovered in the repository, and this table:
 
 ```markdown
 | Ticket | Outcome | Depends on | Acceptance | Likely files/contracts | Parallel group |

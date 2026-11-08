@@ -12,13 +12,25 @@ reviews/feature-round-1.md
 
 The main orchestrator owns only request.md in a separate control worktree, outside the final target checkout and supplies its absolute path. This worker-orchestrator control directory is a separate authoritative location; report its absolute path to main. Never overwrite the main record or reconstruct a second copy of worker state there.
 
-The existing specification and implementation plan are inputs from the completed preparation phase. Record their authoritative paths and revisions in run.md. The worker orchestrator does not author or revise them. Its assignments.md maps planned scope to workers without replacing the canonical plan.
+The existing specification and implementation plan are inputs from the completed preparation phase. Record their authoritative paths and revisions in run.md. The worker orchestrator maintains their implementation status. Requirements and plan changes belong to the preparation phase. Its assignments.md maps planned scope to workers without replacing the canonical plan.
 
 The worker orchestrator is the sole writer of execution-task statuses, run state, and persisted review reports. Workers return results in their chats; they do not edit shared coordination files. The worker orchestrator may update these files while workers operate in separate worktrees. Supply current ticket/spec content with each dispatch because worker checkouts may contain older coordination documents.
 
 Verify that the existing spec/plan are accessible to workers by authoritative path or pinned revision; do not rewrite or silently commit unrelated user changes to obtain them. Commit new execution assignments/tasks on the integration branch before dispatch so worktrees can read them. Keep later coordination updates on that branch, committing them separately from product changes before the final feature review. Coordinate these commits with candidate integration: changing the feature branch base requires candidate revalidation. After final approval, preserve the reviewed head and keep only the final review report and status/handoff updates as uncommitted local evidence. List those paths in delivery; never hide product edits among them. This avoids a new commit being needed merely to record approval of the previous commit. If the user needs evidence committed too, commit it and obtain review of that new head; the last verdict still lives in chat/local evidence rather than recursively creating commits.
 
 Read [requested skills](requested-skills.md) for propagation, direct-user updates, and acknowledgments.
+
+## Implementation status
+
+The worker orchestrator writes matching `Implementation status` fields near the top of the spec and plan. Use an existing equivalent field when it has the same meaning. Add the field to older documents as needed.
+
+- `Pending` when there is no verified coverage for the current requirements and plan.
+- `Partially implemented` when verified delivery covers a subset. Record the covered tickets, functions, or criteria under `Implemented scope` in both documents. Carry forward verified scope that is present in the candidate and still applies to the current requirements.
+- `Implemented` when final checks and independent review cover the entire current spec and plan. A successful review of a selected subset supports only the scope it verified.
+
+For documents in the delivered tree, verify that the candidate contains the preparation revisions used for implementation. Commit the metadata edits on the final candidate before final checks and review. Have the reviewer confirm that the status in each document matches the verified coverage. Keep the candidate isolated until approval, and advance the integration branch only to the approved head. Preserve the requirements, plan, and unrelated document content. Compare preparation revisions separately from implementation metadata. When preparing a revised spec or plan, recalculate status from the verified coverage that still applies.
+
+If an authoritative spec or plan lives outside the delivered tree, update its status in place after verifying the delivery outcome. Verify the document's scope revision and preserve concurrent edits. If either update cannot be applied safely, record the pending path in run.md and report it in the handoff. On resume, verify the delivery and document revisions before retrying pending writes. Report where both statuses can be read. Record the actual branch, PR, or merge separately in run.md.
 
 ## Run record
 

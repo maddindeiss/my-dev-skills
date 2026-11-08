@@ -5,7 +5,7 @@ Assemble child-task work on one request integration branch. Internal merges/cher
 ## Prepare
 
 1. Require tests and independent combined review for the entire selected scope. Record reviewed source SHA, target ref and observed SHA, intended method, and authorization in run.md. Use the repository's permitted method: one squash commit when requested or conventional, otherwise one aggregate merge/fast-forward operation.
-2. Refresh the target. If it advanced, build a candidate including the updated target in a disposable worktree. Leave the target untouched. Assign conflicts to one designated worker, or resolve purely mechanical conflicts yourself in the candidate. Record resolutions; do not discard either side without understanding the contract.
+2. Refresh the target. If it advanced, build a candidate including the updated target in a disposable worktree. Reconcile the spec and plan's [implementation status](protocol.md#implementation-status) with the resulting scope. Leave the target untouched. Assign conflicts to one designated worker, or resolve purely mechanical conflicts yourself in the candidate. Record resolutions; do not discard either side without understanding the contract.
 3. A changed base or conflict resolution requires tests of the resulting combined tree and fresh independent review against the current target. Give the reviewer the candidate's check evidence. Route findings to workers and repeat within the final repair budget. Earlier approval cannot approve new resolutions.
 4. If commits are rewritten for squash/rebase, verify the resulting tree matches the tested candidate and record the new source SHA. Obtain fresh review if content changes. Preserve previous branches as evidence.
 
@@ -18,4 +18,4 @@ Assemble child-task work on one request integration branch. Internal merges/cher
 - Record merge intent (source SHA, target-before SHA, PR, method) before the operation. Verify the actual target/merge SHA afterward. After interruption, inspect PR status or Git history/tree against that intent before retrying. Squash does not preserve source ancestry: compare the recorded operation and patch/tree too. If uncertain, stop instead of merging twice.
 - Mark Complete only after the requested delivery state is verified. Report the single PR/merge result, proof and artifact locations to the main orchestrator. A blocked external gate returns Ready to merge or Blocked, with the exact remaining action.
 
-Final review and status evidence remain local as described in protocol.md to preserve the reviewed head. Merging does not authorize deployment or release publication.
+Keep final review reports and run evidence local as described in [the delivery protocol](protocol.md). Merging does not authorize deployment or release publication.

@@ -51,6 +51,7 @@ SKILL_UPDATE: update ID, base revision, operation, skill/scope, user-message ref
 DECISION: question, recommendation, impact; or None
 PROOF: tested SHA and combined-review verdict when available
 DELIVERY: branch/PR, target, actual merge SHA or pending gate
+IMPLEMENTATION STATUS: spec and plan locations, verified scope, and any pending writes
 ARTIFACTS: absolute run.md path and relevant report paths
 NEXT: owner and next action
 ```
