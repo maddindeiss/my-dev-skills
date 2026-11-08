@@ -1,6 +1,6 @@
 # Feature delivery skills
 
-Prepare the specification and implementation plan first. Then use the delivery skills to execute selected planned work through two levels of orchestration. Talk to the main orchestrator; it delegates technical work to a separate worker orchestrator and retains only compact checkpoints and decisions.
+Prepare the specification and implementation plan first. Then use the delivery skills to execute selected planned work through two levels of orchestration. Talk to the main orchestrator. It delegates technical work to a separate named worker-orchestrator chat and retains only compact checkpoints and decisions. Implementation workers and reviewers also get separate named chats by default.
 
 ```mermaid
 flowchart TD
@@ -80,19 +80,20 @@ Use $feature-orchestrate to deliver T-002 from
 docs/features/saved-searches/tickets/T-002.md.
 The completed spec is docs/features/saved-searches/spec.md
 and the completed plan is docs/features/saved-searches/plan.md.
-Keep this chat as my main orchestrator. Create a separate worker-orchestrator
-chat. I authorize that coordinator to create and message implementation and
-reviewer chats in isolated worktrees. You may message the coordinator with
-assignments and decisions. The coordinator may send compact skill-selection
-updates back to this main chat when I give it instructions directly. Let it split this ticket into child tasks, handle
-review rounds and conflicts, and perform one final merge into the local main
-branch after all required checks and independent review pass.
+Keep this chat as my main orchestrator. Create separate Codex chats in isolated
+worktrees for the worker orchestrator, implementation workers, and reviewers.
+Have the worker orchestrator create and message the worker and reviewer chats.
+You may message the coordinator with assignments and decisions. The coordinator
+may send compact skill-selection updates back to this main chat when I give it
+instructions directly. Let it split this ticket into child tasks, handle review
+rounds and conflicts, and perform one final merge into the local main branch
+after all required checks and independent review pass.
 Do not push or deploy. Keep detailed worker discussion out of this main chat.
 ```
 
 You can select a function instead: name its file/function and the section of the existing spec and plan that defines the work. The worker orchestrator only divides that decided work into execution assignments. If delivery reveals a missing requirement or design decision, affected work pauses and returns to the separate spec/plan phase; it resumes from the updated document revisions. For a remote PR, name the repository, target branch, and whether to open one aggregate PR or also merge it. To inspect before merging, say to prepare the combined branch and stop at Ready to merge.
 
-For tool policies that require direct human authorization, the main passes the original authorization reference. If the receiving chat cannot verify it, it reports the missing scope instead of treating an agent-written prompt as human permission. Results are collected through chat snapshots, so reverse messages are unnecessary.
+If your request only says to implement the plan, the main orchestrator asks for any missing chat permissions before dispatch. It passes the original authorization reference to the coordinator. If the receiving chat cannot verify it, it reports the missing scope and waits. Results are collected through chat snapshots, so reverse messages are unnecessary.
 
 Resume from the main chat:
 
@@ -135,4 +136,4 @@ Approvals name exact commits. New code, conflict resolution, or target changes r
 
 Final verdict and completion records remain explicitly listed local evidence after approval, preserving the reviewed commit. Earlier documents and coordination updates are committed before final review. A prepared branch, an open PR, and a completed merge are reported as different outcomes. Merging does not include deployment.
 
-These skills are agent instructions, not a background scheduler. Live delivery requires Git with an initial commit, usable check commands, and the appropriate Codex chat/worktree tools. Internal subagents may be used only if that mode is explicitly acceptable; shared host limits count the whole hierarchy.
+Live delivery requires Git with an initial commit, usable check commands, and the appropriate Codex chat and worktree tools. Internal subagents are an explicit opt-in for implementation and review roles. Shared host limits count the whole hierarchy.

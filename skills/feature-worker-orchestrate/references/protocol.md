@@ -30,7 +30,7 @@ Record in `run.md`:
 - Final target ref, expected target SHA, merge method, merge intent, actual merge SHA/PR state, and requested delivery mode.
 - Integration branch, worktree, last verified integration SHA, and final approved SHA.
 - Pending integration: candidate branch/worktree, recorded integration base, ticket source head/range, resulting candidate SHA, and combined-check status. A candidate with committed changes and failing tests is still unverified and never becomes the dispatch base.
-- User-authorized mode: visible chats or subagents; concurrency; local, PR, or merge delivery; exact authorized messaging scope. Preserve references to the actual user instruction. Relayed agent prompts are not fresh human authorization.
+- User-authorized dispatch mode for workers and reviewers, including any role-specific subagent opt-ins. Record concurrency, delivery mode, exact messaging scope, and references to the original user instructions.
 - For each ticket: state, worker ID and host, worktree, branch, assigned base SHA, current head SHA, reviewer ID, reviewed SHA, report path, repair rounds used, integration SHA, blocker.
 - Pending chat creation IDs, resolved thread IDs, and wait cursors. A pending client ID is not a usable thread ID.
 - Whole-feature repair rounds, check commands/results, current scoped acceptance matrix with parent-criterion mapping, and unresolved findings.

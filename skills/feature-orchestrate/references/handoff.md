@@ -22,8 +22,9 @@ Main-owned request record: [absolute path].
 Your control directory: [absolute path for assignments, tasks, run, reviews].
 Delivery: [prepare branch / one aggregate PR / one final merge].
 Target: [verified branch and remote if relevant].
-Authorization: [actual user wording and trusted reference, covering nested
-chat creation, worktrees, messaging, and final merge when authorized].
+Dispatch mode: [named worker and reviewer chats, or roles explicitly assigned to internal subagents].
+Authorization: [actual user wording and trusted reference, covering dispatch
+mode, chat creation, worktrees, messaging, and final merge when authorized].
 Concurrency: [two implementation workers by default, within host limits].
 Execute the supplied spec and plan; do not author or replace them.
 Split the selected planned work into assignments, assign workers, run independent

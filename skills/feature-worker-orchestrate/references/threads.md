@@ -22,13 +22,13 @@ Pass the title in `create_thread.title` so it appears from creation, including w
 - Use `wait_threads` with thread ID, host ID, and latest cursor; use bounded waits up to 60 seconds. Use `read_thread` for missing details or intervention. A timeout is not a failure or a completed result.
 - The worker orchestrator collects workers' final messages through snapshots. Workers and reviewers need not message it back. This avoids assuming a worker orchestrator's prompt grants reverse messaging authority.
 - Use authorized `send_message_to_thread` to send findings to the existing implementation chat. Preserve model settings unless the user requests an override. If that chat is unavailable, first verify its last worktree/head and record a replacement before starting another.
-- For review, create a fresh chat in its own worktree at the reviewed SHA, or use a fresh subagent if the user authorized that review mode. Never ask the implementer to approve its own work.
+- For review, create a fresh chat in its own worktree at the reviewed SHA. Use a fresh subagent only if the user explicitly selected internal review for this request. The reviewer must be independent of the implementer.
 
 Direct user skill instructions received by the worker orchestrator are reported to main immediately using [requested skills](requested-skills.md). Send a compact event directly to main only with actual user authorization for that direction; otherwise publish it in a checkpoint for collection and keep it pending until acknowledged. Read the main chat ID/host from run.md, never infer a destination.
 
 ## Internal subagents
 
-Use only when the user accepts this mode and delegation is available. `spawn_agent` creates workers/reviewers; result messages return to the worker orchestrator, and `followup_task` resumes a worker for fixes. Isolate each worker's Git worktree before dispatch; do not rely on separate context to isolate files. Give the exact working directory and restrict edits to it. Respect the host's active-agent limit, including the main orchestrator, worker orchestrator, workers, and reviewer. Read-only reviews still need their own temporary checkout if running tests can modify tracked files.
+Use only for implementation or review roles the user explicitly assigned to internal subagents for this request. `spawn_agent` creates workers and reviewers, result messages return to the worker orchestrator, and `followup_task` resumes a worker for fixes. Isolate each worker's Git worktree before dispatch. Give the exact working directory and restrict edits to it. Respect the host's active-agent limit, including the main orchestrator, worker orchestrator, workers, and reviewer. Read-only reviews still need their own temporary checkout if running tests can modify tracked files.
 
 ## Implementation prompt
 
