@@ -47,7 +47,7 @@ Record in `run.md`:
 - Pending chat creation IDs, resolved thread IDs, and wait cursors. A pending client ID is not a usable thread ID.
 - Whole-feature repair rounds, check commands/results, current scoped acceptance matrix with parent-criterion mapping, and unresolved findings.
 
-Write at each transition so a resumed orchestrator can reconstruct the next action. Read Git and live chat state to reconcile the record after interruptions. If integration occurred before the record was saved, check candidate ancestry, source range, and commit contents before integrating again; recover or rerun combined checks before declaring it verified. Commits being present alone is not proof. Claim each ticket in the record before creating its worker; never run two orchestrators against the same feature. If an existing coordinator may be active, inspect it and establish ownership before taking over.
+Write at each transition so a resumed orchestrator can reconstruct the next action. Keep current state and concise decisions in the ledger, with detailed check output in referenced artifacts. Read Git and live chat state to reconcile the record after interruptions. If integration occurred before the record was saved, check candidate ancestry, source range, and commit contents before integrating again; recover or rerun combined checks before declaring it verified. Commits being present alone is not proof. Claim each ticket before assigning its worker and establish exclusive ownership before taking over a run.
 
 ## States
 
@@ -59,7 +59,9 @@ An explicitly required early gate adds `Verified → Review → Approved` before
 
 On resume, preserve existing `Review`, `Approved`, and finding records. Reconcile them with the current review policy and user instructions. A policy change leaves known blocking findings to resolve and preserves the repair budget already used.
 
-`Blocked` records a concrete missing decision, unavailable capability, exhausted repair budget, or failing required check. It preserves the prior state and evidence so resumption can continue from that point. Blocked work never satisfies a dependency. A worker's completion message moves work to review, not directly to Integrated.
+`Blocked` records a concrete missing decision, unavailable capability, exhausted repair budget, or failing required check. It preserves the prior state and evidence so resumption can continue from that point. Blocked work never satisfies a dependency. Verify the worker's head and evidence before advancing through the applicable ticket states.
+
+A task whose remaining work is final acceptance is recorded as awaiting final verification. Enter the final gate when implementation changes and ordinary dependencies are integrated, then record that acceptance task's result from the final checks and review. Preserve its ID and required artifacts. Missing implementation or test changes still follow the normal integration path.
 
 Request states: `Checking prerequisites`, `Assigning`, with missing prerequisites becoming `Blocked`; then `Running`, `Final review`, `Ready to merge`, `Awaiting human`, `Blocked`, `Complete`. Complete means the requested delivery mode is satisfied. A prepared local branch is never reported as merged. Report compact checkpoints to main; detailed repair evidence stays here.
 

@@ -41,6 +41,8 @@ flowchart TD
 
 Two implementation workers run by default, within the host's capacity including both orchestrators and reviewers. Repair loops allow three rounds per child task and three for the combined request. Exhausted budgets become recorded blockers; independent work may continue.
 
+Related sequential tickets can reuse a worker chat and worktree. Each check has one executor whose evidence is passed to integration and review. Build caches persist where the tools support safe reuse. Planned final acceptance uses the same combined checks and review as delivery, with its ticket and evidence still recorded.
+
 ## Install in Codex
 
 Install all seven skills together from this public repository because they reference each other. With Node.js and npm available, run:

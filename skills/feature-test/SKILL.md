@@ -19,7 +19,11 @@ Read the applicable Requested skills entries and effective skills revision from 
 
    Reuse recorded passing results that cover the same command, exact head, relevant test environment and inputs, and current requirements. Rerun affected checks after changes and any checks the current gate requires on the new head. Record which results were reused and preserve useful failure output.
 
+   Give each check one executor. The coordinator and reviewer inspect its evidence and run additional checks for a specific gap, changed input, or independent-execution requirement. Use one full run to satisfy overlapping ticket and final acceptance requirements when it covers the same head and environment. If a result is reused, retain its original executor and evidence reference.
+
+   Keep toolchain and dependency caches across tasks. Use the build system's supported incremental rebuild in each exclusive worktree. Share caches across concurrent worktrees only when the build tool supports that use. Create a clean build when required by the repository or when stale output is a concrete concern. Preserve reproducible commands and separate mutable test data for concurrent checks.
+
 4. Verify browser-visible flows relevant to this stage with real-browser evidence. Cover failure states, mobile and desktop widths, keyboard use, and console errors where relevant to those flows. Save new evidence in the project's normal artifact location. If required browser evidence is unavailable, mark those criteria Unverified.
 5. Fix failures introduced by the change when acting as an implementer. In a review context, report failures without repairing production code. Respect the worker orchestrator's repair budget and never weaken tests to obtain a pass.
 
-Return the skills revision and per-skill verification evidence alongside a criterion matrix (`Pass`, `Fail`, or `Unverified`), tested SHA, commands/results, artifacts, and pre-existing failures. Independent review issues its own verdict.
+Return the skills revision and per-skill verification evidence alongside a criterion matrix (`Pass`, `Fail`, or `Unverified`), tested SHA, commands/results, artifacts, and pre-existing failures. Include elapsed time when the execution tool reports it, so expensive checks can be identified from the existing evidence. Independent review issues its own verdict.

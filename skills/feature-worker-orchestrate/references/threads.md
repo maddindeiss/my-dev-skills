@@ -20,7 +20,7 @@ Pass the title in `create_thread.title` so it appears from creation, including w
 - Read current `create_thread`, `set_thread_title`, `list_projects`, `list_threads`, `read_thread`, `wait_threads`, and `send_message_to_thread` schemas. Use the project ID returned by discovery. Follow tool-specific requirements for human authorization, worktree creation, starting refs, and messaging.
 - Prefer project worktree chats when the user explicitly requested separate worktrees and the project is a Git repository. Do not pass an invented branch through a field that requires a user-specified branch. If the tool creates from the default branch, tell the worker to inspect the clean managed worktree and create its ticket branch at the supplied, verified integration SHA before implementation. Do not reset unrelated work to make it fit.
 - For a pending creation, record the client ID, then use supported discovery/wait mechanisms to obtain the real thread ID. Do not dispatch a duplicate while setup is pending.
-- Use `wait_threads` with thread ID, host ID, and latest cursor; use bounded waits up to 60 seconds. Use `read_thread` for missing details or intervention. A timeout is not a failure or a completed result.
+- Use one `wait_threads` call for the active children, with each thread's host and latest cursor, within the tool's target limit. Use bounded waits up to 60 seconds. Read full transcripts only for missing details or intervention. Save new cursors and report meaningful changes.
 - The worker orchestrator collects workers' final messages through snapshots. Workers and reviewers need not message it back. This avoids assuming a worker orchestrator's prompt grants reverse messaging authority.
 - Use authorized `send_message_to_thread` to send findings to the existing implementation chat. Preserve model settings unless the user requests an override. If that chat is unavailable, first verify its last worktree/head and record a replacement before starting another.
 - Create one independent reviewer chat when review is due and reuse it for follow-ups and combined review. Preserve evidence before moving its isolated checkout to the new reviewed SHA. Replace a reviewer only when unavailable or no longer independent, after reconciling its pending work and preserving its report. An approval request belongs to the user and must be resolved through its normal approval path. Use internal review only when explicitly selected by the user.
@@ -35,12 +35,14 @@ Use only for implementation or review roles the user explicitly assigned to inte
 
 Fill all fields with concrete values; pass the skill's absolute path as well as its name.
 
+For a resumed worker, send the new assignment, base, changed requirements, and evidence references. Reuse unchanged context already read in that chat. When assigning a different ticket, update its generated title to describe the current task and retain the previous assignment in run.md. Preserve user-chosen titles. A new worker receives the complete applicable assignment. Verify authoritative revisions before relying on either form.
+
 ```text
 Use $feature-implement at [absolute SKILL.md path].
 Implement ticket [ID] for feature [name] in [exclusive worktree].
 Start from integration commit [full SHA]; use ticket branch [branch].
-Spec: [path and current content or immutable revision].
-Ticket: [path and full current content].
+Spec: [authoritative path, revision, and relevant sections].
+Ticket: [authoritative path and revision; current content if unavailable there].
 Repository instructions: [locations]. Ticket checks: [focused commands and checks required before handoff].
 Dependencies already integrated: [IDs and SHAs].
 Scope and ownership: [outcome, permitted changes, shared contracts].

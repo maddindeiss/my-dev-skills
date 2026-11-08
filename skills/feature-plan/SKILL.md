@@ -20,11 +20,11 @@ Preserve optional skill selections from the spec or user request in the plan and
 - Each ticket delivers one end-to-end result with its proof. Prefer a small usable first slice that establishes the important contracts.
 - Map every feature acceptance criterion to at least one ticket. Shared criteria may span tickets, but name who verifies the complete flow.
 - Assign stable `T-n` IDs for feature-level tickets and parent-scoped `W-n` IDs for worker tasks. Never renumber existing tickets or confuse a child task with its parent.
-- Record dependencies by ID. Check for missing IDs, self-dependencies, and cycles before declaring the plan ready.
+- Record dependencies by ID and name the contract or shared edit that requires each one. Identify independent work that can proceed after a shared foundation is integrated. Check for missing IDs, self-dependencies, and cycles before declaring the plan ready.
 - Mark tickets with unresolved blocking decisions `Blocked`, with the missing decision named. Only actionable tickets become `Ready`.
 - Inspect likely files, contracts, schema changes, generated files, and lockfiles. Mark overlapping work as sequential unless the ownership boundary makes concurrent editing safe. Put shared contract changes before their consumers.
 - Keep a ticket small enough for one worker and one reviewable commit series. Separate refactoring only when it would obscure the behavior change.
-- Reserve a final whole-feature verification and review after integration; passing ticket reviews alone do not complete a feature.
+- Reserve one final whole-feature verification and review after integration. Create a separate acceptance ticket only when it delivers concrete work such as missing cross-ticket tests or documentation. Map its evidence to the final gate so the same acceptance exercise can serve both.
 
 ## Plan format
 

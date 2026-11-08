@@ -14,6 +14,8 @@ Initialize the skills revision to RS-0 for an empty selection; omit per-skill ev
 
 The worker coordinator and assigned agent read applicable SKILL.md instructions and any necessary references. If unavailable, search installed sources and report the missing capability; block affected work until resolved rather than silently substituting another skill or claiming compliance. Skill selection does not authorize installation, publication, or other side effects beyond the user's request. Skill instructions remain subject to host policies, user scope, and the agent's role. A reviewer reads the skill for applicable standards and checks evidence without executing editing or publishing steps. An irreconcilable conflict returns a concrete blocker.
 
+Within the same chat, reuse already-read instructions while their source version and applicability are unchanged. Load the affected guidance when either changes. Send complete applicable skill selections with each assignment, using source references for their content.
+
 ## User instructions received by main
 
 Main records the requirement, advances its canonical skills revision (`RS-1`, `RS-2`, ...), and sends the full current requirements and revision to the worker orchestrator. The coordinator records the revision, determines affected assignments, and forwards the requirements to existing or new workers and reviewers. Main does not read the whole skill or worker logs merely to relay the requirement.
